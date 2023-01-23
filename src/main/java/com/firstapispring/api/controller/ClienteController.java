@@ -1,7 +1,6 @@
 package com.firstapispring.api.controller;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.firstapispring.domain.model.Cliente;
 import com.firstapispring.domain.repository.ClienteRepository;
 
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
@@ -42,12 +42,12 @@ public class ClienteController {
 	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public Cliente adicionarCliente(@RequestBody Cliente cliente) {		
+	public Cliente adicionarCliente(@Valid @RequestBody Cliente cliente) {		
 		return clienteRepository.save(cliente);
 	}
 	
 	@PutMapping("/{clientId}")
-	public ResponseEntity<Cliente> atualizarCliente(@PathVariable Long clientId, @RequestBody Cliente cliente){
+	public ResponseEntity<Cliente> atualizarCliente( @PathVariable Long clientId, @Valid @RequestBody Cliente cliente){
 		
 		if( !clienteRepository.existsById(clientId) ) {
 			return ResponseEntity.notFound().build();
