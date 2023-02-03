@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.firstapispring.domain.model.Cliente;
 import com.firstapispring.domain.repository.ClienteRepository;
+import com.firstapispring.domain.service.ClienteService;
 
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -27,6 +28,8 @@ public class ClienteController {
 	
 	
 	private ClienteRepository clienteRepository;
+
+	private ClienteService clienteService;
 	
 	@GetMapping
 	public List<Cliente> clienteList() {
@@ -43,7 +46,8 @@ public class ClienteController {
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public Cliente adicionarCliente(@Valid @RequestBody Cliente cliente) {		
-		return clienteRepository.save(cliente);
+		//return clienteRepository.save(cliente);
+		return clienteService.salvar(cliente);
 	}
 	
 	@PutMapping("/{clientId}")
@@ -63,7 +67,8 @@ public class ClienteController {
 		if ( !clienteRepository.existsById(clientId)) {			
 			return ResponseEntity.notFound().build();
 		}
-		clienteRepository.deleteById(clientId);
+		///clienteRepository.deleteById(clientId);
+		clienteService.excluir(clientId);
 		
 		return ResponseEntity.noContent().build();
 

@@ -30,19 +30,19 @@ public class Cliente {
 	
 	
 	@Column(name = "nome")
-	@NotBlank
+	@NotBlank(message = "Nome é obrigatório")
 	@Size(max = 50)
 	private String nome;
 	
 	@Column(name="email")
-	@NotBlank
+	@NotBlank(message = "Email é obrigatório")
 	@Email
 	@Size(max = 255)
 	private String email;
 	
 	@Column(name="telefone")
 	
-	@NotBlank
+	@NotBlank(message = "Telefone é obrigatório")	
 	@Size(max = 20)
 	private String telefone;
 
