@@ -15,6 +15,14 @@ public class ClienteService {
     private ClienteRepository clienteRepository;
 
 
+
+    @Transactional
+    public Cliente buscar(Long clienteID){
+        return clienteRepository.findById(clienteID)
+                .orElseThrow(() -> new NegocioException("Cliente não encontrado"));
+
+    }
+
     public void excluir(Long clienteId) {
         if (!clienteRepository.existsById(clienteId)) {
             //throw new NegocioException("Cliente não encontrado");
