@@ -3,6 +3,8 @@ package com.firstapispring.domain.model;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -41,8 +43,10 @@ public class Entrega {
     @Enumerated(EnumType.STRING)
     private StatusEntrega status;
 
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private LocalDateTime dataPedido;
 
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private LocalDateTime dataFinalizacao;
 
     
