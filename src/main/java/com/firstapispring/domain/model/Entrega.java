@@ -48,7 +48,7 @@ public class Entrega {
     @ManyToOne
     private Cliente cliente;
 
-    @Valid
+    @Valid // para que o JPA valide o objeto TODOS OS CAMPOS  embutido E não apenas o objeto em si
     @NotNull(message = "O campo Destinatário não pode ser nulo")
     @Embedded // para que o JPA entenda que o Destinatario é um tipo embutido, ou seja, que não é uma entidade
     private Destinatario destinatario;
