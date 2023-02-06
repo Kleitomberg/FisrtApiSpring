@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.http.ResponseEntity;
 
+import com.firstapispring.api.assembler.EntregaAssembler;
 import com.firstapispring.api.representarioModels.EntregaRepresentarion;
 import com.firstapispring.domain.model.Entrega;
 import com.firstapispring.domain.service.EntregaService;
@@ -29,15 +30,17 @@ public class EntregaController {
     private EntregaService entregaService;
     private EntregaRepository entregaRepository;
 
+    private EntregaAssembler entregaAssembler;
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Entrega solicitar(@Valid @RequestBody Entrega entrega) {
-        return entregaService.solicitar(entrega);
+    public EntregaRepresentarion solicitar(@Valid @RequestBody Entrega entrega) {
+        return entregaAssembler.toModel(entregaService.solicitar(entrega));
     }
 
     @GetMapping
-    public List<Entrega> listar() {
-        return entregaRepository.findAll();
+    public List<EntregaRepresentarion> listar() {       
+        return entregaAssembler.toCollectionModel(entregaRepository.findAll());
     }
 
     @GetMapping("/{entregaId}")
