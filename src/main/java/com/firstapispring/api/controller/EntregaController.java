@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 
 import com.firstapispring.api.assembler.EntregaAssembler;
 import com.firstapispring.api.representarioModels.EntregaRepresentarion;
+import com.firstapispring.api.representarioModels.input.EntregaInput;
 import com.firstapispring.domain.model.Entrega;
 import com.firstapispring.domain.service.EntregaService;
 
@@ -34,8 +35,9 @@ public class EntregaController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public EntregaRepresentarion solicitar(@Valid @RequestBody Entrega entrega) {
-        return entregaAssembler.toModel(entregaService.solicitar(entrega));
+    public EntregaRepresentarion solicitar(@Valid @RequestBody EntregaInput entrega) {
+        Entrega novaEntrega = entregaAssembler.toEntity(entrega);
+        return entregaAssembler.toModel(entregaService.solicitar(novaEntrega));
     }
 
     @GetMapping

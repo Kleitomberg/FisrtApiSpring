@@ -4,6 +4,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
 import com.firstapispring.api.representarioModels.EntregaRepresentarion;
+import com.firstapispring.api.representarioModels.input.EntregaInput;
 import com.firstapispring.domain.model.Entrega;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -26,6 +27,10 @@ public class EntregaAssembler {
         return entregas.stream()
                 .map(entrega -> toModel(entrega))
                 .collect(Collectors.toList());
+    }
+
+    public Entrega toEntity(EntregaInput entregaInput) {
+        return modelMapper.map(entregaInput, Entrega.class);
     }
 
     
