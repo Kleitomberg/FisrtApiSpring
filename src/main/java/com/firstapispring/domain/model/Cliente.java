@@ -3,7 +3,8 @@ package com.firstapispring.domain.model;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 
-
+import com.firstapispring.domain.ValidationGroups;
+ 
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -23,6 +24,7 @@ import lombok.Setter;
 @Table(name = "clientes")
 public class Cliente {
 	
+	@NotNull(message = "Id é obrigatório", groups = ValidationGroups.ClienteId.class)
 	@EqualsAndHashCode.Include
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY )

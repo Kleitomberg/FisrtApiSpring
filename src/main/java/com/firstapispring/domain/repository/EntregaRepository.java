@@ -9,6 +9,8 @@ import com.firstapispring.domain.model.Entrega;
 @Repository
 public interface EntregaRepository extends JpaRepository<Entrega,Long> {
 
+    Entrega findByClienteId(Long clienteId);
+
 
     
 }

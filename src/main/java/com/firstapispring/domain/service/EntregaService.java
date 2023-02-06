@@ -2,6 +2,7 @@ package com.firstapispring.domain.service;
 
 import java.time.LocalDateTime;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,6 +33,13 @@ public class EntregaService {
         entrega.setDataPedido(LocalDateTime.now());
 
         return entregaRepository.save(entrega);
+    }
+
+    @Transactional
+    public ResponseEntity<Entrega> buscar(Long id){
+        Entrega entrega = entregaRepository.findById(id).orElseThrow(() -> new NegocioException("Entrega não encontrada"));
+        return ResponseEntity.ok(entrega);
+
     }
     
 }
