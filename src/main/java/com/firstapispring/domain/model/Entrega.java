@@ -19,6 +19,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+
 import jakarta.persistence.Table;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
@@ -28,6 +30,10 @@ import jakarta.validation.groups.ConvertGroup;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import java.util.List;
+import java.util.ArrayList; 
+import jakarta.persistence.CascadeType;
+
 
 
 @Getter
@@ -65,6 +71,19 @@ public class Entrega {
 
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private OffsetDateTime dataFinalizacao;
+
+    @OneToMany(mappedBy = "entrega",cascade = CascadeType.ALL)
+    private List<Ocorrencia> ocorrencias = new ArrayList<>();
+
+
+    public Ocorrencia adicionarOcorrencia(String descricao) {
+       Ocorrencia ocorrencia = new Ocorrencia();
+        ocorrencia.setDescricao(descricao);
+        ocorrencia.setDataRegistro(OffsetDateTime.now());
+        ocorrencia.setEntrega(this);
+        getOcorrencias().add(ocorrencia);
+        return ocorrencia;
+    }
 
     
 }
