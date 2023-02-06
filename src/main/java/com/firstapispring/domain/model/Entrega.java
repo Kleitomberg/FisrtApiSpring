@@ -7,6 +7,7 @@ import java.time.OffsetDateTime;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import com.firstapispring.domain.ValidationGroups;
+import com.firstapispring.domain.exeption.NegocioException;
 
 //default
 
@@ -83,6 +84,23 @@ public class Entrega {
         ocorrencia.setEntrega(this);
         getOcorrencias().add(ocorrencia);
         return ocorrencia;
+    }
+
+    public void finalizar() {
+        if (naoPodeSerFinalizada()) {
+            throw new NegocioException("Entrega não pode ser finalizada");
+        }
+
+        setStatus(StatusEntrega.FINALIZADA);
+        setDataFinalizacao(OffsetDateTime.now());
+    }
+
+    public boolean podeSerFinalizada() {
+        return StatusEntrega.PENDENTE.equals(getStatus());
+    }
+
+    public boolean naoPodeSerFinalizada() {
+        return !podeSerFinalizada();
     }
 
     

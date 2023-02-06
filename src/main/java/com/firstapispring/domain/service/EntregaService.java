@@ -25,6 +25,7 @@ public class EntregaService {
 
     private EntregaRepository entregaRepository;
     private ClienteService clienteService;
+    private OcorrenciaService ocorrenciaService;
 
 
     private EntregaAssembler entregaAssembler;
@@ -51,5 +52,19 @@ public class EntregaService {
 
     }
     
+    @Transactional
+    public void finalizar(Long id){
+
+    Entrega entrega = ocorrenciaService.buscarEntrega(id);
+
+    entrega.finalizar();
+
+    entrega.setStatus(StatusEntrega.FINALIZADA);
+
+    entregaRepository.save(entrega);
+
+        
+        
+    }
     
 }
