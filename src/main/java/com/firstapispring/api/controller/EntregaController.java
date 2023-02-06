@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.http.ResponseEntity;
 
-
+import com.firstapispring.api.representarioModels.EntregaRepresentarion;
 import com.firstapispring.domain.model.Entrega;
 import com.firstapispring.domain.service.EntregaService;
 
@@ -41,7 +41,7 @@ public class EntregaController {
     }
 
     @GetMapping("/{entregaId}")
-    public ResponseEntity<Entrega> buscar(@PathVariable Long entregaId) {
+    public ResponseEntity<EntregaRepresentarion> buscar(@PathVariable Long entregaId) {
         return entregaService.buscar(entregaId);
     }
     

@@ -17,7 +17,7 @@ import lombok.Setter;
 public class Problema {
 	
 	private Integer status;
-	private LocalDateTime data;
+	private OffsetDateTime data;
 	private String titulo;
 	private List<Campo> campos;
 	

@@ -1,7 +1,6 @@
 package com.firstapispring.api.exeptionhandler;
 
 
-import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.util.HashMap;
 import java.util.Map;
@@ -50,7 +49,7 @@ public class ApiExeptionHandler extends ResponseEntityExceptionHandler {
 		var problema = new Problema();
 		problema.setStatus(status.value());
 		problema.setTitulo(ex.getMessage());
-		problema.setData(LocalDateTime.now());
+		problema.setData(OffsetDateTime.now());
 		return handleExceptionInternal(ex, problema, new HttpHeaders(), status, request);
 	}
 
