@@ -11,6 +11,7 @@ import com.firstapispring.domain.model.Entrega;
 import com.firstapispring.domain.model.StatusEntrega;
 import com.firstapispring.domain.repository.EntregaRepository;
 import com.firstapispring.domain.repository.ClienteRepository;
+import com.firstapispring.api.assembler.EntregaAssembler;
 import com.firstapispring.api.representarioModels.DestinatarioRepresentarion;
 import com.firstapispring.api.representarioModels.EntregaRepresentarion;
 import com.firstapispring.domain.exeption.NegocioException;
@@ -25,8 +26,8 @@ public class EntregaService {
     private EntregaRepository entregaRepository;
     private ClienteService clienteService;
 
-    
-    private ModelMapper modelMapper;
+
+    private EntregaAssembler entregaAssembler;
 
     @Transactional
     public Entrega solicitar(Entrega entrega) {
@@ -38,15 +39,17 @@ public class EntregaService {
         entrega.setStatus(StatusEntrega.PENDENTE);
         entrega.setDataPedido(OffsetDateTime.now());
 
+        
         return entregaRepository.save(entrega);
     }
 
     @Transactional
     public ResponseEntity<EntregaRepresentarion> buscar(Long id){
         Entrega entrega = entregaRepository.findById(id).orElseThrow(() -> new NegocioException("Entrega não encontrada"));
-        EntregaRepresentarion entregaRepresentario = modelMapper.map(entrega, EntregaRepresentarion.class);
+        EntregaRepresentarion entregaRepresentario = entregaAssembler.toModel(entrega);
         return ResponseEntity.ok(entregaRepresentario);
 
     }
+    
     
 }
